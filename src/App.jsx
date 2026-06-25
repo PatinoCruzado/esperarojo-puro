@@ -10,18 +10,34 @@ const INITIAL_BUSES = [
 ];
 
 export default function App() {
+  // Inicialización segura del usuario
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('sessionUser');
-    return saved ? JSON.parse(saved) : null;
+    try {
+      const saved = localStorage.getItem('sessionUser');
+      return saved ? JSON.parse(saved) : null;
+    } catch (error) {
+      localStorage.removeItem('sessionUser'); // Limpia si está corrupto
+      return null;
+    }
   });
 
+  // Inicialización segura de los buses
   const [buses, setBuses] = useState(() => {
-    const saved = localStorage.getItem('er_buses');
-    return saved ? JSON.parse(saved) : INITIAL_BUSES;
+    try {
+      const saved = localStorage.getItem('er_buses');
+      return saved ? JSON.parse(saved) : INITIAL_BUSES;
+    } catch (error) {
+      localStorage.removeItem('er_buses'); // Limpia si está corrupto
+      return INITIAL_BUSES;
+    }
   });
 
   useEffect(() => {
-    localStorage.setItem('er_buses', JSON.stringify(buses));
+    try {
+      localStorage.setItem('er_buses', JSON.stringify(buses));
+    } catch (error) {
+      console.error("Error guardando en localStorage", error);
+    }
   }, [buses]);
 
   const handleLogin = (email, password) => {
@@ -35,14 +51,18 @@ export default function App() {
       return { success: true };
     }
 
-    const registrados = JSON.parse(localStorage.getItem('usuarios_registrados') || '[]');
-    const encontrado = registrados.find(u => u.email === email && u.password === password);
-    
-    if (encontrado) {
-      const userData = { email: encontrado.email, isAdmin: false };
-      setUser(userData);
-      localStorage.setItem('sessionUser', JSON.stringify(userData));
-      return { success: true };
+    try {
+      const registrados = JSON.parse(localStorage.getItem('usuarios_registrados') || '[]');
+      const encontrado = registrados.find(u => u.email === email && u.password === password);
+      
+      if (encontrado) {
+        const userData = { email: encontrado.email, isAdmin: false };
+        setUser(userData);
+        localStorage.setItem('sessionUser', JSON.stringify(userData));
+        return { success: true };
+      }
+    } catch (e) {
+      localStorage.removeItem('usuarios_registrados');
     }
 
     return { success: false, error: 'Credenciales inválidas.' };
@@ -54,7 +74,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ minHeight: '100-vh', backgroundColor: '#0f172a', color: '#f8fafc', fontFamily: 'sans-serif' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#0b0f19', color: '#f8fafc', fontFamily: 'sans-serif' }}>
       {!user ? (
         <Login onLogin={handleLogin} />
       ) : (
