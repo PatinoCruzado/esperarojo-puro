@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="EsperaRojo ULima — Información del Corredor Rojo de Lima para estudiantes y trabajadores de la Universidad de Lima">
+  <title>EsperaRojo ULima</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- App CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Splash / Loading -->
+  <div id="splash-screen" class="splash-screen">
+    <div class="splash-content">
+      <div class="splash-icon">🚍</div>
+      <h1 class="splash-title">EsperaRojo</h1>
+      <p class="splash-subtitle">Universidad de Lima</p>
+      <div class="splash-loader"></div>
+    </div>
+  </div>
+
+  <!-- Main App Container -->
+  <div id="app" class="app-container" style="display:none;">
+
+    <!-- Top Header -->
+    <header id="app-header" class="app-header">
+      <div class="header-content">
+        <div class="header-brand">
+          <span class="header-icon">🚍</span>
+          <span class="header-title">EsperaRojo</span>
+        </div>
+        <button id="btn-logout" class="btn-icon" title="Cerrar sesión" style="display:none;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dynamic Content Area -->
+    <main id="main-content" class="main-content">
+      <!-- Screens are injected here by JS router -->
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav id="bottom-nav" class="bottom-nav" style="display:none;">
+      <button class="nav-item" data-screen="home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Inicio</span>
+      </button>
+      <button class="nav-item" data-screen="mapa">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+          <line x1="8" y1="2" x2="8" y2="18"/>
+          <line x1="16" y1="6" x2="16" y2="22"/>
+        </svg>
+        <span>Mapa</span>
+      </button>
+      <button class="nav-item" data-screen="rutas">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>Rutas</span>
+      </button>
+      <button class="nav-item" data-screen="planes">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+          <line x1="1" y1="10" x2="23" y2="10"/>
+        </svg>
+        <span>Planes</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- App JS Modules -->
+  <script src="js/auth.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/mapa.js"></script>
+  <script src="js/rutas.js"></script>
+  <script src="js/planes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
