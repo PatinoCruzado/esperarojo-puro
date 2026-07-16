@@ -3,19 +3,13 @@ const busModel = require('../models/busModel');
 
 async function getSummary(req, res, next) {
   try {
-    const lat = parseFloat(req.query.lat);
-    const lng = parseFloat(req.query.lng);
+    let lat = parseFloat(req.query.lat);
+    let lng = parseFloat(req.query.lng);
 
+    // Si no hay coordenadas (GPS falló o denegado), usar Universidad de Lima por defecto
     if (isNaN(lat) || isNaN(lng)) {
-      return res.json({
-        success: true,
-        data: {
-          paraderos_cercanos: [],
-          proximo_bus: null,
-          aforo: null,
-          mensaje: 'Información no disponible temporalmente. Activa tu ubicación para ver paraderos cercanos.'
-        }
-      });
+      lat = -12.0847;
+      lng = -76.9710;
     }
 
     // Paraderos cercanos (máximo 5)

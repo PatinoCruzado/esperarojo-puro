@@ -59,7 +59,7 @@ async function findStopsByRouteId(routeId) {
 }
 
 async function findNearbyStops(lat, lng, limitCount) {
-  const [rows] = await pool.execute(
+  const [rows] = await pool.query(
     `SELECT s.id, s.nombre, s.latitud, s.longitud, s.direccion_texto,
             (6371 * ACOS(
               COS(RADIANS(?)) * COS(RADIANS(s.latitud)) *
